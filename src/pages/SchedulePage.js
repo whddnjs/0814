@@ -4,10 +4,24 @@ import { useSchedule } from '../hooks/schedule';
 function SchedulePage() {
   const { getSchedules, add, destory, edit } = useSchedule();
 
-  // 수정을 눌렀을 때 작동하는 함수 선언
-  // 1. 프롬프트 창을 두번 띄운다. 프롬프트창엔 수정할 제목, 내용이 순서대로 나온다.
-  // 취소시에 함수를 종료한다.
-  // 2. 바뀐값들을 scheuld 객체에 title, content에 각각 넣어주고 edit함수에 인자로 넣어서 실행시킨다.
+  const onAdd = () => {
+    const titleResult = prompt('제목 입력하삼');
+    if (!titleResult) {
+      return;
+    }
+
+    const contentResult = prompt('내용 입력하삼');
+    if (!contentResult) {
+      return;
+    }
+
+    const addSchedule = {
+      title: titleResult,
+      content: contentResult,
+    };
+
+    add(addSchedule);
+  };
 
   const onUpdate = schedule => {
     const titleResult = prompt('수정할 제목', schedule.title);
@@ -31,7 +45,13 @@ function SchedulePage() {
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="w-[20rem] min-h-[25rem] bg-yellow-300 p-2">
+      <div className="w-[20rem] min-h-[25rem] bg-yellow-300 p-2 relative">
+        <button
+          className="absolute top-2 right-2 bg-white p-1"
+          onClick={() => onAdd()}
+        >
+          생성
+        </button>
         <div className="text-center text-2xl mb-2">todo list</div>
         <div
           className="w-full bg-white
@@ -46,7 +66,7 @@ function SchedulePage() {
           <ul>
             {getSchedules().map(schedule => {
               return (
-                <li className="flex justify-between">
+                <li className="flex justify-between" key={schedule.id}>
                   <div>{schedule.title}</div>
                   <div>{schedule.content}</div>
                   <div>
