@@ -43,6 +43,14 @@ function SchedulePage() {
     edit(updateSchedule);
   };
 
+  const onDelete = id => {
+    const result = window.confirm('정말 삭제할꺼임?');
+    if (!result) {
+      return;
+    }
+    destory(id);
+  };
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="w-[20rem] min-h-[25rem] bg-yellow-300 p-2 relative">
@@ -73,7 +81,7 @@ function SchedulePage() {
                     <button onClick={() => onUpdate(schedule)}>수정</button>
                   </div>
                   <div>
-                    <button onClick={() => destory(schedule.id)}>삭제</button>
+                    <button onClick={() => onDelete(schedule.id)}>삭제</button>
                   </div>
                 </li>
               );
