@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+console.log('이 프로젝트는 CI/CD가 도입됨 !!');
+
 root.render(
   <React.StrictMode>
     <App />
