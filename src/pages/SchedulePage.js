@@ -1,69 +1,21 @@
 import React from 'react';
-import { useSchedule } from '../hooks/schedule';
+import { useSchedulePage } from './SchedulePage.service';
 
 function SchedulePage() {
-  const { getSchedules, add, destory, edit } = useSchedule();
-
-  const onAdd = () => {
-    const titleResult = prompt('제목 입력하삼');
-    if (!titleResult) {
-      return;
-    }
-
-    const contentResult = prompt('내용 입력하삼');
-    if (!contentResult) {
-      return;
-    }
-
-    const addSchedule = {
-      title: titleResult,
-      content: contentResult,
-    };
-
-    add(addSchedule);
-  };
-
-  const onUpdate = schedule => {
-    const titleResult = prompt('수정할 제목', schedule.title);
-    if (!titleResult) {
-      return;
-    }
-
-    const contentResult = prompt('수정할 내용', schedule.content);
-    if (!contentResult) {
-      return;
-    }
-
-    const updateSchedule = {
-      ...schedule,
-      title: titleResult,
-      content: contentResult,
-    };
-
-    edit(updateSchedule);
-  };
-
-  const onDelete = id => {
-    const result = window.confirm('정말 삭제할꺼임?');
-    if (!result) {
-      return;
-    }
-    destory(id);
-  };
+  const { getSchedules, onAdd, onUpdate, onDelete } = useSchedulePage();
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="flex items-center justify-center w-full h-screen">
       <div className="w-[20rem] min-h-[25rem] bg-yellow-300 p-2 relative">
         <button
-          className="absolute top-2 right-2 bg-white p-1"
+          className="absolute p-1 bg-white top-2 right-2"
           onClick={() => onAdd()}
         >
           생성
         </button>
-        <div className="text-center text-2xl mb-2">todo list</div>
+        <div className="mb-2 text-2xl text-center">todo list</div>
         <div
-          className="w-full bg-white
-        "
+          className="w-full bg-white "
         >
           <div className="flex justify-between font-bold">
             <div>제목</div>
